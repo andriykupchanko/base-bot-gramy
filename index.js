@@ -12,13 +12,18 @@ bot.api.setMyCommands([
   { command: "say_hi", description: "Says hello" }
 ]);
 
-bot.command("start", ctx => ctx.reply("Welcome! Up and running."));
+bot.command("start", ctx => {
+  ctx.reply("Welcome! Up and running.", {
+    reply_parameters: { message_id: ctx.msg.message_id }
+  });
+});
 
 // перевіряємо повідомлення чи відповідає регулярному виразу
 bot.hears(/fuck/, ctx => ctx.reply("worn"));
 
 // перевіряємо повідомлення чи відповідає повідомленню
 bot.hears(["ping", "pin"], ctx => ctx.reply("pong"));
+bot.hears("id", ctx => ctx.reply(ctx.from.id));
 
 // перевіряємо повідомлення по схожості до команд
 bot.command(["say_hello", "hello", "say_hi"], async ctx => {
