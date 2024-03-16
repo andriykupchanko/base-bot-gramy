@@ -1,4 +1,4 @@
-const { Bot, GrammyError, HttpError } = require("grammy");
+const { Bot, GrammyError, HttpError, Keyboard } = require("grammy");
 require("dotenv").config();
 
 const botToken = process.env.BOT_TOKEN;
@@ -37,13 +37,25 @@ bot.on([":media", "::url"], async ctx => {
   await ctx.reply("Получил ссылку");
 });
 
+bot.command("mood", ctx => {
+  const keyboard = new Keyboard()
+    .text("🙂")
+    .row()
+    .text("😐")
+    .row()
+    .text("🙁")
+    .resized()
+    .oneTime();
+
+  ctx.reply("What's your mood?", { reply_markup: keyboard });
+});
 // перевіряємо користувача як адмін
-bot.on("msg").filter(
-  ctx => {
-    return ctx.from.id == 617976579;
-  },
-  ctx => ctx.reply("Got a Admin message!")
-);
+// bot.on("msg").filter(
+//   ctx => {
+//     return ctx.from.id == 617976579;
+//   },
+//   ctx => ctx.reply("Got a Admin message!")
+// );
 
 bot.on("message", ctx => ctx.reply("Got another message!"));
 
