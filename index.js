@@ -13,8 +13,10 @@ bot.api.setMyCommands([
 ]);
 
 bot.command("start", ctx => {
-  ctx.reply("Welcome! Up and running.", {
-    reply_parameters: { message_id: ctx.msg.message_id }
+  ctx.react("👍");
+  ctx.reply("Welcome\\! Up *and* _running_\\.", {
+    reply_parameters: { message_id: ctx.msg.message_id },
+    parse_mode: "MarkdownV2"
   });
 });
 
